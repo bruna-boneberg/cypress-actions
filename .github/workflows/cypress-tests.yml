@@ -21,40 +21,40 @@ jobs:
     env:
       TARGET_TOKEN_ELECTRON: ${{ secrets.TARGET_TOKEN_ELECTRON }}
       
-jobs:
-  cypress-chrome-tests:
-    needs: cypress-electron-tests
-    runs-on: ubuntu-latest
-    container: 
+    jobs:
+    cypress-chrome-tests:
+      needs: cypress-electron-tests
+      runs-on: ubuntu-latest
+      container: 
        image: cypress/browsers:node18.12.0-chrome103-ff107
        options: --user 1001   
-    steps: 
-      - name: Get code
-        uses: actions/checkout@v2.7.0
+      steps: 
+       - name: Get code
+         uses: actions/checkout@v2.7.0
        
-      - name: Install dependencies
-        run: yarn install
+       - name: Install dependencies
+         run: yarn install
        
-      - name: Run E2E tests
-        run: node runner-chrome.js
-    env:
-      TARGET_TOKEN_CHROME: ${{ secrets.TARGET_TOKEN_CHROME }}
+       - name: Run E2E tests
+         run: node runner-chrome.js
+      env:
+      TARGET_TOKEN_CHROME: ${{ secrets.TARGET_TOKEN_CHROME }}    
       
-jobs:
-  cypress-firefox-tests:
-    needs: cypress-electron-tests
-    runs-on: ubuntu-latest
-    container: 
+      jobs:
+      cypress-firefox-tests:
+       needs: cypress-electron-tests
+       runs-on: ubuntu-latest
+       container: 
        image: cypress/browsers:node18.12.0-chrome103-ff107
        options: --user 1001   
-    steps: 
-      - name: Get code
-        uses: actions/checkout@v2.7.0
+       steps: 
+       - name: Get code
+         uses: actions/checkout@v2.7.0
        
-      - name: Install dependencies
-        run: yarn install
+       - name: Install dependencies
+         run: yarn install
        
-      - name: Run E2E tests
-        run: node runner-firefox.js
-    env:
+       - name: Run E2E tests
+         run: node runner-firefox.js
+       env:
       TARGET_TOKEN_FIREFOX: ${{ secrets.TARGET_TOKEN_FIREFOX }}
